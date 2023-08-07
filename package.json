@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "test": "tsc -p test/tsconfig.json",
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "phaser": "^3.60.0",
+    "typescript": "^5.1.6"
+  }
+}
