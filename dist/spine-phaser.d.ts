@@ -69,7 +69,7 @@ declare namespace spine {
 	        height: number;
 	    };
 	}
-	const SpineGameObject_base: typeof BaseSpineGameObject & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Alpha, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Visible, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Transform, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.ScrollFactor, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Flip, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Origin, any[]> & import("./phaser-mixins").Type<Phaser.GameObjects.Components.Depth, any[]>;
+	const SpineGameObject_base: typeof BaseSpineGameObject & Type<Phaser.GameObjects.Components.Alpha, any[]> & Type<Phaser.GameObjects.Components.Visible, any[]> & Type<Phaser.GameObjects.Components.Transform, any[]> & Type<Phaser.GameObjects.Components.ScrollFactor, any[]> & Type<Phaser.GameObjects.Components.Flip, any[]> & Type<Phaser.GameObjects.Components.Origin, any[]> & Type<Phaser.GameObjects.Components.Depth, any[]>;
 	/**
 	 * A SpineGameObject is a Phaser {@link GameObject} that can be added to a Phaser Scene and render a Spine skeleton.
 	 *
@@ -264,6 +264,41 @@ declare namespace spine {
 	const SPINE_ATLAS_FILE_TYPE = "spineAtlasData";
 	const SPINE_GAME_OBJECT_TYPE = "spine";
 	const SPINE_CONTAINER_TYPE = "spineContainer";
+	
+
+}
+
+// PACK: spine-phaser/dist/mixins.d.ts
+declare namespace spine {
+	const ComputedSize: any;
+	const Depth: any;
+	const Flip: any;
+	const ScrollFactor: any;
+	const Transform: any;
+	const Visible: any;
+	const Origin: any;
+	const Alpha: any;
+	interface Type<T, P extends any[] = any[]> extends Function {
+	    new (...args: P): T;
+	}
+	type Mixin<GameObjectComponent, GameObjectConstraint extends Phaser.GameObjects.GameObject> = <GameObjectType extends Type<GameObjectConstraint>>(BaseGameObject: GameObjectType) => GameObjectType & Type<GameObjectComponent>;
+	function createMixin<GameObjectComponent, GameObjectConstraint extends Phaser.GameObjects.GameObject = Phaser.GameObjects.GameObject>(...component: GameObjectComponent[]): Mixin<GameObjectComponent, GameObjectConstraint>;
+	type ComputedSizeMixin = Mixin<Phaser.GameObjects.Components.Transform, Phaser.GameObjects.GameObject>;
+	const ComputedSizeMixin: ComputedSizeMixin;
+	type DepthMixin = Mixin<Phaser.GameObjects.Components.Depth, Phaser.GameObjects.GameObject>;
+	const DepthMixin: DepthMixin;
+	type FlipMixin = Mixin<Phaser.GameObjects.Components.Flip, Phaser.GameObjects.GameObject>;
+	const FlipMixin: FlipMixin;
+	type ScrollFactorMixin = Mixin<Phaser.GameObjects.Components.ScrollFactor, Phaser.GameObjects.GameObject>;
+	const ScrollFactorMixin: ScrollFactorMixin;
+	type TransformMixin = Mixin<Phaser.GameObjects.Components.Transform, Phaser.GameObjects.GameObject>;
+	const TransformMixin: TransformMixin;
+	type VisibleMixin = Mixin<Phaser.GameObjects.Components.Visible, Phaser.GameObjects.GameObject>;
+	const VisibleMixin: VisibleMixin;
+	type OriginMixin = Mixin<Phaser.GameObjects.Components.Origin, Phaser.GameObjects.GameObject>;
+	const OriginMixin: OriginMixin;
+	type AlphaMixin = Mixin<Phaser.GameObjects.Components.Alpha, Phaser.GameObjects.GameObject>;
+	const AlphaMixin: AlphaMixin;
 	
 
 }

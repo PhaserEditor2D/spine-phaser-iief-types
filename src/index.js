@@ -6,7 +6,7 @@ const basePath = path.join(process.env.SPINE_RUNTIMES, "spine-ts");
 fs.rmSync("dist", { force: true, recursive: true });
 fs.mkdirSync("dist");
 fs.cpSync("manual", "dist", { force: true, recursive: true });
-fs.cpSync(path.join(basePath, "spine-phaser", "dist", "mixins.d.ts"), path.join("dist", "phaser-mixins.d.ts"));
+//fs.cpSync(path.join(basePath, "spine-phaser", "dist", "mixins.d.ts"), path.join("dist", "phaser-mixins.d.ts"));
 
 for (const dir of ["spine-core", "spine-webgl", "spine-phaser"]) {
 
@@ -33,7 +33,7 @@ function buildDir(dir) {
 
         if (file === "require-shim.d.ts"
             || file === "index.d.ts"
-            || file === "mixins.d.ts") {
+            /*|| file === "mixins.d.ts"*/) {
 
             continue;
         }
@@ -67,7 +67,7 @@ function buildDir(dir) {
                     continue;
                 }
 
-                line = line.replaceAll("./mixins", "./phaser-mixins");
+                line = line.replaceAll("import(\"./mixins\").", "");
 
                 fileOutStr += `\t${line}\n`;
             }
