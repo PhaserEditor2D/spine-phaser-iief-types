@@ -12,5 +12,7 @@ class Level extends Phaser.Scene {
         const obj = this.add.spine(0, 0, "data-key", "atlas-key");
 
         obj.setScale(0.5, 0.5);
+
+        obj.animationState.setAnimation(0, "some-animation", true);
     }
 }
