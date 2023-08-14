@@ -12,7 +12,7 @@ for (const dir of ["spine-core", "spine-webgl", "spine-phaser"]) {
     const str = buildDir(path.join(dir, "dist"));
 
     const file = path.join("dist", `${dir}.d.ts`);
-    
+
     fs.writeFileSync(file, str);
 }
 
@@ -42,7 +42,17 @@ function buildDir(dir) {
 
             let fileOutStr = "";
 
-            const fileStr = fs.readFileSync(fullFile).toString();
+            let fileStr = fs.readFileSync(fullFile).toString();
+
+            if (fileStr.startsWith("/*")) {
+
+                let i = fileStr.indexOf("*****/");
+
+                if (i > 0) {
+
+                    fileStr = fileStr.substring(i + 6);
+                }
+            }
 
             for (let line of fileStr.split("\n")) {
 
@@ -70,14 +80,7 @@ function buildDir(dir) {
                 fileOutStr += `\t${line}\n`;
             }
 
-            if (file === "index.d.ts") {
-
-                str += `\n\n// PACK: ${dir}/${file}\n\n${fileOutStr}\n`;
-
-            } else {
-
-                str += `\n\n// PACK: ${dir}/${file}\ndeclare namespace spine {\n${fileOutStr}\n}`;
-            }
+            str += `\n\n// PACK: ${dir}/${file}\ndeclare namespace spine {${fileOutStr.trimEnd()}\n}`;
 
         } else if (fs.statSync(fullFile).isDirectory()) {
 
